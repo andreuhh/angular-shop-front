@@ -9,6 +9,7 @@
                             styleClass="p-button-primary mr-2"
                             label="Create" 
                             icon="pi pi-plus"
+                            (click)="onSubmit()"
                         ></p-button>
                         <p-button 
                             styleClass="p-button-secondary"
@@ -21,17 +22,19 @@
         </div>
         <div class="grid">
             <div class="col-12">
-                <form>
+                <form [formGroup]="form">
                     <div class="card">
                         <h5>Vertical and Grid</h5>
                         <div class="formgrid grid">
                             <div class="field col">
                                 <label for="name">Name</label>
-                                <input id="name" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                                <input formControlName="name" id="name" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                                <small *ngIf="categoryForm.name.invalid && this.isSubmitted" class="p-error">Name is required</small>
                             </div>
                             <div class="field col">
                                 <label for="icon">Icon</label>
-                                <input id="icon" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                                <input formControlName="icon" id="icon" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                                <small *ngIf="categoryForm.icon.invalid && this.isSubmitted" class="p-error">Icon is required</small>
                             </div>
                         </div>
                     </div>

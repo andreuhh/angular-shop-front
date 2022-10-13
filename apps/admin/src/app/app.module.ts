@@ -15,8 +15,9 @@ import { TableModule } from 'primeng/table';
 import { CategoriesService } from '@bluebits/products';
 import { CategoriesFormComponent } from './categories/categories-form/categories-form.component';
 import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-const UX_MODULE = [CardModule, InputTextModule, ToolbarModule, ButtonModule, TableModule];
+const UX_MODULE = [CardModule, InputTextModule, ToolbarModule, ButtonModule, TableModule, FormsModule, ReactiveFormsModule,];
 
 const routes: Routes = [
     {
