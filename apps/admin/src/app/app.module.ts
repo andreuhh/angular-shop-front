@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -11,6 +12,7 @@ import { CardModule } from 'primeng/card';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
+import { CategoriesService } from '@bluebits/products';
 
 const UX_MODULE = [
     CardModule,
@@ -40,10 +42,11 @@ const routes: Routes = [
     declarations: [AppComponent, DashboardComponent, ShellComponent, SidebarComponent, CategoriesListComponent],
     imports: [
         BrowserModule,
+        HttpClientModule,
         RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' }),
         ...UX_MODULE
     ],
-    providers: [],
+    providers: [CategoriesService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
