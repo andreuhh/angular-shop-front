@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -16,8 +17,10 @@ import { CategoriesService } from '@bluebits/products';
 import { CategoriesFormComponent } from './categories/categories-form/categories-form.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
-const UX_MODULE = [CardModule, InputTextModule, ToolbarModule, ButtonModule, TableModule, FormsModule, ReactiveFormsModule,];
+const UX_MODULE = [CardModule, ToastModule, InputTextModule, ToolbarModule, ButtonModule, TableModule, FormsModule, ReactiveFormsModule,];
 
 const routes: Routes = [
     {
@@ -42,8 +45,8 @@ const routes: Routes = [
 
 @NgModule({
     declarations: [AppComponent, DashboardComponent, ShellComponent, SidebarComponent, CategoriesListComponent, CategoriesFormComponent],
-    imports: [BrowserModule, HttpClientModule, RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' }), ...UX_MODULE],
-    providers: [CategoriesService],
+    imports: [BrowserModule, BrowserAnimationsModule, HttpClientModule, RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' }), ...UX_MODULE],
+    providers: [CategoriesService, MessageService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
