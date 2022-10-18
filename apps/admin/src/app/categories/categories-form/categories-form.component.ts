@@ -5,13 +5,13 @@ import { CategoriesService, Category } from '@bluebits/products';
 import { MessageService } from 'primeng/api';
 
 @Component({
-    selector: 'bluebits-categories-form',
+    selector: 'admin-categories-form',
     templateUrl: './categories-form.component.html',
     styleUrls: ['./categories-form.component.scss']
 })
 export class CategoriesFormComponent implements OnInit {
     form: FormGroup;
-    isSubmitted: boolean = false;
+    isSubmitted = false;
     editMode = false;
     currentCategoryID: string;
 
@@ -52,8 +52,8 @@ export class CategoriesFormComponent implements OnInit {
 
     private _addCategory(category: Category) {
         this.categoriesService.createCategory(category).subscribe(
-            response => {
-                this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Category is created', });
+            (category: Category) => {
+                this.messageService.add({ severity: 'success', summary: 'Success', detail: `Category ${category.name} is created`, });
                 // do redirect to categories page
             }, (error) => {
                 this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Category Not created created' });
