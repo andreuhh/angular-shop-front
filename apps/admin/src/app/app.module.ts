@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -21,8 +21,21 @@ import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ColorPickerModule } from 'primeng/colorpicker';
+import { ProductsFormComponent } from './pages/products/products-form/products-form.component';
+import { ProductsListComponent } from './pages/products/products-list/products-list.component';
 
-const UX_MODULE = [CardModule, ConfirmDialogModule, ToastModule, InputTextModule, ToolbarModule, ButtonModule, TableModule, FormsModule, ReactiveFormsModule, ColorPickerModule];
+const UX_MODULE = [
+    CardModule,
+    ConfirmDialogModule,
+    ToastModule,
+    InputTextModule,
+    ToolbarModule,
+    ButtonModule,
+    TableModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ColorPickerModule
+];
 
 const routes: Routes = [
     {
@@ -44,13 +57,34 @@ const routes: Routes = [
             {
                 path: 'categories/form/:id',
                 component: CategoriesFormComponent
+            },
+            {
+                path: 'products',
+                component: ProductsListComponent
+            },
+            {
+                path: 'products/form',
+                component: ProductsFormComponent
+            },
+            {
+                path: 'products/form/:id',
+                component: ProductsFormComponent
             }
         ]
     }
 ];
 
 @NgModule({
-    declarations: [AppComponent, DashboardComponent, ShellComponent, SidebarComponent, CategoriesListComponent, CategoriesFormComponent],
+    declarations: [
+        AppComponent,
+        DashboardComponent,
+        ShellComponent,
+        SidebarComponent,
+        CategoriesListComponent,
+        CategoriesFormComponent,
+        ProductsFormComponent,
+        ProductsListComponent
+    ],
     imports: [BrowserModule, BrowserAnimationsModule, HttpClientModule, RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' }), ...UX_MODULE],
     providers: [CategoriesService, MessageService, ConfirmationService],
     bootstrap: [AppComponent]
