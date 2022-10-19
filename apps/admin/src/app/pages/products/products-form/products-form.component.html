@@ -1,1 +1,73 @@
-<p>products-form works!</p>
+<p-toast></p-toast>
+<div class="admin-page">
+    <p-card [header]="editMode ? 'Edit Product' : 'Add Product'" subheader="list of products here">
+        Content
+        <div class="grid mb-5">
+            <div class="col-12">
+                <p-toolbar>
+                    <div class="p-toolbar-group-right">
+                        <p-button 
+                            styleClass="p-button-primary mr-2"
+                            [label]="editMode ? 'Update' :'Create'" 
+                            icon="pi pi-plus"
+                        ></p-button>
+                        <p-button 
+                            styleClass="p-button-secondary"
+                            label="Cancel" 
+                            icon="pi pi-plus"
+                        ></p-button>
+                    </div>
+                </p-toolbar>
+            </div>
+        </div>
+        <div class="grid">
+            <div class="col-12">
+                <form [formGroup]="form">
+                    <div class="card">
+                        <h5>Vertical and Grid</h5>
+                        <div class="formgrid grid">
+                            <div class="field col">
+                                <label for="name">Name</label>
+                                <input formControlName="name" id="name" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                                <small *ngIf="productForm.name.invalid && this.isSubmitted" class="p-error">Name is required</small>
+                            </div>
+                            <div class="field col">
+                                <label for="price">Brand</label>
+                                <input formControlName="brand" id="brand" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                                <small *ngIf="productForm.brand.invalid && this.isSubmitted" class="p-error">brand is required</small>
+                            </div>
+                            <div class="field col">
+                                <label for="price">Price</label><br>
+                                <input formControlName="price" id="price" type="number" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                                <small *ngIf="productForm.price.invalid && this.isSubmitted" class="p-error">price is required</small>
+                            </div>
+                        </div>
+                        <div class="formgrid grid">
+                            <div class="field col-4">
+                                <label for="countInStock">Count in stock</label>
+                                <input formControlName="countInStock" id="countInStock" type="number" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                                <small *ngIf="productForm.countInStock.invalid && this.isSubmitted" class="p-error">Count in stock is required</small>
+                            </div>
+                            <div class="field col-4">
+                                <label for="price">Category</label>
+                                <input formControlName="category" id="category" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                                <small *ngIf="productForm.category.invalid && this.isSubmitted" class="p-error">Category is required</small>
+                            </div>
+                            <div class="field col-4">
+                                <label for="isFestured">Is Featured</label>
+                                <br>
+                                <p-inputSwitch formControlName="isFeatured"></p-inputSwitch>
+                            </div>
+                            <div class="field col-12">
+                                <label for="description">Description</label><br>
+                                <textarea pInputTextarea formControlName="description"></textarea>
+                                <small *ngIf="productForm.description.invalid && this.isSubmitted" class="p-error">price is required</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </p-card>
+</div>

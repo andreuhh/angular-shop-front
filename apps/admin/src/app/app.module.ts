@@ -23,6 +23,9 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { ProductsFormComponent } from './pages/products/products-form/products-form.component';
 import { ProductsListComponent } from './pages/products/products-list/products-list.component';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputSwitchModule } from 'primeng/inputswitch'
 
 const UX_MODULE = [
     CardModule,
@@ -34,7 +37,10 @@ const UX_MODULE = [
     TableModule,
     FormsModule,
     ReactiveFormsModule,
-    ColorPickerModule
+    ColorPickerModule,
+    InputNumberModule,
+    InputTextareaModule,
+    InputSwitchModule
 ];
 
 const routes: Routes = [
@@ -83,7 +89,7 @@ const routes: Routes = [
         CategoriesListComponent,
         CategoriesFormComponent,
         ProductsFormComponent,
-        ProductsListComponent
+        ProductsListComponent,
     ],
     imports: [BrowserModule, BrowserAnimationsModule, HttpClientModule, RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' }), ...UX_MODULE],
     providers: [CategoriesService, MessageService, ConfirmationService],
