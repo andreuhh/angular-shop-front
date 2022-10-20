@@ -50,7 +50,8 @@
                             </div>
                             <div class="field col-4">
                                 <label for="price">Category</label>
-                                <input formControlName="category" id="category" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                                <br>
+                                <p-dropdown [options]="this.categories" optionLabel="name" filter="true" formControlName="category" placeholder="Select a category"></p-dropdown>
                                 <small *ngIf="productForm.category.invalid && this.isSubmitted" class="p-error">Category is required</small>
                             </div>
                             <div class="field col-4">
