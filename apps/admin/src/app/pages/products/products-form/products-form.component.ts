@@ -31,7 +31,7 @@ export class ProductsFormComponent implements OnInit {
             countInStock: ['', Validators.required],
             description: ['', Validators.required],
             richDescription: [''],
-            //image: [''],
+            image: [''],
             isFeatured: [false],
         })
     }
@@ -47,23 +47,30 @@ export class ProductsFormComponent implements OnInit {
         if (this.form.invalid) return;
 
         const productFormData = new FormData();
-
         Object.keys(this.productForm).map((key) => {
             productFormData.append(key, this.productForm[key].value);
-        })
+        });
 
         this._addProduct(productFormData);
     }
 
-    _addProduct(productData: FormData) {
+    private _addProduct(productData: FormData) {
         this.productService.createProduct(productData).subscribe(
             (product: Product) => {
-                this.messageService.add({ severity: 'success', summary: 'Success', detail: `Product ${product.name} is created`, });
-                // need redirect
-            }, (error) => {
-                this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Product Not created' });
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Success',
+                    detail: `Product ${product.name} is created!`
+                });
+            },
+            () => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: 'Product is not created!'
+                });
             }
-        )
+        );
     }
 
     onImageUpload(event) {
@@ -74,7 +81,7 @@ export class ProductsFormComponent implements OnInit {
             const fileReader = new FileReader();
             fileReader.onload = () => {
                 this.imageDisplay = fileReader.result;
-            }
+            };
             fileReader.readAsDataURL(file);
         }
     }

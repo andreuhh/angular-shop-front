@@ -72,12 +72,19 @@
                                 <!-- <p-editor formControlName="richDescription" ></p-editor> -->
                                 <textarea pInputTextarea formControlName="richDescription"></textarea>
                             </div>
-                            <div class="field col-12">
-                                <label for="name">Main image</label>
-                                <br>
-                                <input type="file" class="p-inputtext" accept="image/*" (change)="onImageUpload($event)">
-                                <div class="col-2 mt-2 pl-0">
-                                    <img style="width: 100%;" [src]="imageDisplay" alt="">
+                            <div class="p-field p-col-12">
+                                <label for="name">Main Image</label>
+                                <input
+                                  type="file"
+                                  class="p-inputtext"
+                                  accept="image/*"
+                                  (change)="onImageUpload($event)"
+                                />
+                                <small *ngIf="productForm.image.invalid && isSubmitted" class="p-error"
+                                  >Image is required</small
+                                >
+                                <div class="p-col-2 p-mt-2 p-pl-0">
+                                  <img style="width: 100%" [src]="imageDisplay" alt="" />
                                 </div>
                             </div>
                         </div>
