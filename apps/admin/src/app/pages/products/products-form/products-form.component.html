@@ -7,6 +7,7 @@
                 <p-toolbar>
                     <div class="p-toolbar-group-right">
                         <p-button 
+                            (onClick)="onSubmit()"
                             styleClass="p-button-primary mr-2"
                             [label]="editMode ? 'Update' :'Create'" 
                             icon="pi pi-plus"
@@ -51,7 +52,8 @@
                             <div class="field col-4">
                                 <label for="price">Category</label>
                                 <br>
-                                <p-dropdown [options]="this.categories" optionLabel="name" filter="true" formControlName="category" placeholder="Select a category"></p-dropdown>
+                                <p-dropdown [options]="this.categories" optionValue="_id" optionLabel="name" filter="true" formControlName="category" placeholder="Select a category"></p-dropdown>
+                                <br>
                                 <small *ngIf="productForm.category.invalid && this.isSubmitted" class="p-error">Category is required</small>
                             </div>
                             <div class="field col-4">
@@ -62,6 +64,7 @@
                             <div class="field col-6">
                                 <label for="description">Description</label><br>
                                 <textarea pInputTextarea formControlName="description"></textarea>
+                                <br>
                                 <small *ngIf="productForm.description.invalid && this.isSubmitted" class="p-error">price is required</small>
                             </div>
                             <div class="field col-6">

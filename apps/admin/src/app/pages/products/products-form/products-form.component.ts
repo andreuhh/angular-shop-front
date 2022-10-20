@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CategoriesService } from '@bluebits/products';
+import { CategoriesService, Product, ProductsService } from '@bluebits/products';
+import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'admin-products-form',
@@ -14,7 +15,7 @@ export class ProductsFormComponent implements OnInit {
     categories = [];
     imageDisplay: string | ArrayBuffer;
 
-    constructor(private formBuilder: FormBuilder, private categoriesService: CategoriesService,) { }
+    constructor(private formBuilder: FormBuilder, private productService: ProductsService, private categoriesService: CategoriesService, private messageService: MessageService) { }
 
     ngOnInit(): void {
         this._initForm();
@@ -30,8 +31,8 @@ export class ProductsFormComponent implements OnInit {
             countInStock: ['', Validators.required],
             description: ['', Validators.required],
             richDescription: [''],
-            image: [''],
-            isFeatured: [''],
+            //image: [''],
+            isFeatured: [false],
         })
     }
 
@@ -41,9 +42,35 @@ export class ProductsFormComponent implements OnInit {
         })
     }
 
+    onSubmit() {
+        this.isSubmitted = true;
+        if (this.form.invalid) return;
+
+        const productFormData = new FormData();
+
+        Object.keys(this.productForm).map((key) => {
+            productFormData.append(key, this.productForm[key].value);
+        })
+
+        this._addProduct(productFormData);
+    }
+
+    _addProduct(productData: FormData) {
+        this.productService.createProduct(productData).subscribe(
+            (product: Product) => {
+                this.messageService.add({ severity: 'success', summary: 'Success', detail: `Product ${product.name} is created`, });
+                // need redirect
+            }, (error) => {
+                this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Product Not created' });
+            }
+        )
+    }
+
     onImageUpload(event) {
         const file = event.target.files[0];
         if (file) {
+            this.form.patchValue({ image: file });
+            this.form.get('image').updateValueAndValidity();
             const fileReader = new FileReader();
             fileReader.onload = () => {
                 this.imageDisplay = fileReader.result;
