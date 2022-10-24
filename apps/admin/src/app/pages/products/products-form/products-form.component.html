@@ -50,9 +50,17 @@
                                 <small *ngIf="productForm.countInStock.invalid && this.isSubmitted" class="p-error">Count in stock is required</small>
                             </div>
                             <div class="field col-4">
-                                <label for="price">Category</label>
-                                <br>
-                                <p-dropdown [options]="this.categories" optionValue="_id" optionLabel="name" filter="true" formControlName="category" placeholder="Select a category"></p-dropdown>
+                                <label for="category">category</label><br />
+                                <p-dropdown
+                                    [options]="categories"
+                                    formControlName="category"
+                                    optionLabel="name"
+                                    optionValue="id"
+                                    [filter]="true"
+                                    filterBy="name"
+                                    [showClear]="true"
+                                    placeholder="Select a Category"
+                                ></p-dropdown>
                                 <br>
                                 <small *ngIf="productForm.category.invalid && this.isSubmitted" class="p-error">Category is required</small>
                             </div>

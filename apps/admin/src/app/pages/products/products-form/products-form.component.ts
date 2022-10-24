@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { CategoriesService, Product, ProductsService } from '@bluebits/products';
 import { MessageService } from 'primeng/api';
 
@@ -14,12 +15,14 @@ export class ProductsFormComponent implements OnInit {
     form: FormGroup;
     categories = [];
     imageDisplay: string | ArrayBuffer;
+    currentProductId: string;
 
-    constructor(private formBuilder: FormBuilder, private productService: ProductsService, private categoriesService: CategoriesService, private messageService: MessageService) { }
+    constructor(private formBuilder: FormBuilder, private productService: ProductsService, private categoriesService: CategoriesService, private messageService: MessageService, private route: ActivatedRoute) { }
 
     ngOnInit(): void {
         this._initForm();
         this._getCategories();
+        this._checkEditMode();
     }
 
     private _initForm() {
@@ -50,8 +53,12 @@ export class ProductsFormComponent implements OnInit {
         Object.keys(this.productForm).map((key) => {
             productFormData.append(key, this.productForm[key].value);
         });
+        if (this.editMode) {
+            this._updateProduct(productFormData);
+        } else {
 
-        this._addProduct(productFormData);
+            this._addProduct(productFormData);
+        }
     }
 
     private _addProduct(productData: FormData) {
@@ -84,6 +91,45 @@ export class ProductsFormComponent implements OnInit {
             };
             fileReader.readAsDataURL(file);
         }
+    }
+
+    private _updateProduct(productFormData: FormData) {
+        this.productService.updateProduct(productFormData, this.currentProductId).subscribe(
+            () => {
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Success',
+                    detail: 'Product is updated'
+                })
+            },
+            () => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: 'Product is not updated'
+                })
+            }
+        )
+    }
+
+    private _checkEditMode() {
+        this.route.params.subscribe((params) => {
+            if (params.id) {
+                this.editMode = true;
+                this.currentProductId = params.id;
+                this.productService.getProduct(params.id).subscribe((product) => {
+                    this.productForm.name.setValue(product.name);
+                    this.productForm.category.setValue(product.category.id);
+                    this.productForm.brand.setValue(product.brand);
+                    this.productForm.price.setValue(product.price);
+                    this.productForm.countInStock.setValue(product.countInStock);
+                    this.productForm.isFeatured.setValue(product.isFeatured);
+                    this.productForm.description.setValue(product.description);
+                    this.productForm.richDescription.setValue(product.richDescription);
+                    this.imageDisplay = product.image;
+                })
+            }
+        })
     }
 
     get productForm() {

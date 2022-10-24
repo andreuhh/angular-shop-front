@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProductsService } from '@bluebits/products';
 
 @Component({
@@ -9,7 +10,8 @@ import { ProductsService } from '@bluebits/products';
 export class ProductsListComponent implements OnInit {
     products = [];
     constructor(
-        private productsService: ProductsService
+        private productsService: ProductsService,
+        private router: Router,
     ) { }
 
     ngOnInit(): void {
@@ -21,5 +23,9 @@ export class ProductsListComponent implements OnInit {
             this.products = products;
             console.log(this.products);
         })
+    }
+
+    updateProduct(productid: string) {
+        this.router.navigateByUrl(`products/form/${productid}`);
     }
 }
