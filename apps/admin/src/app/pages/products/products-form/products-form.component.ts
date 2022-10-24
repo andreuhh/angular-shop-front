@@ -34,7 +34,7 @@ export class ProductsFormComponent implements OnInit {
             countInStock: ['', Validators.required],
             description: ['', Validators.required],
             richDescription: [''],
-            image: [''],
+            image: ['', Validators.required],
             isFeatured: [false],
         })
     }
@@ -127,6 +127,8 @@ export class ProductsFormComponent implements OnInit {
                     this.productForm.description.setValue(product.description);
                     this.productForm.richDescription.setValue(product.richDescription);
                     this.imageDisplay = product.image;
+                    this.productForm.image.setValidators([]);
+                    this.productForm.image.updateValueAndValidity();
                 })
             }
         })
