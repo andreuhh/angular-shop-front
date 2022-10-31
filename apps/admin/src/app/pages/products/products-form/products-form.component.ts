@@ -17,7 +17,7 @@ export class ProductsFormComponent implements OnInit {
     imageDisplay: string | ArrayBuffer;
     currentProductId: string;
 
-    constructor(private formBuilder: FormBuilder, private productService: ProductsService, private categoriesService: CategoriesService, private messageService: MessageService, private route: ActivatedRoute) { }
+    constructor(private formBuilder: FormBuilder, private productsService: ProductsService, private categoriesService: CategoriesService, private messageService: MessageService, private route: ActivatedRoute) { }
 
     ngOnInit(): void {
         this._initForm();
@@ -35,40 +35,25 @@ export class ProductsFormComponent implements OnInit {
             description: ['', Validators.required],
             richDescription: [''],
             image: ['', Validators.required],
-            isFeatured: [false],
-        })
+            isFeatured: [false]
+        });
     }
 
     private _getCategories() {
-        this.categoriesService.getCategories().subscribe(categories => {
-            this.categories = categories
-        })
-    }
-
-    onSubmit() {
-        this.isSubmitted = true;
-        if (this.form.invalid) return;
-
-        const productFormData = new FormData();
-        Object.keys(this.productForm).map((key) => {
-            productFormData.append(key, this.productForm[key].value);
+        this.categoriesService.getCategories().subscribe((categories) => {
+            this.categories = categories;
         });
-        if (this.editMode) {
-            this._updateProduct(productFormData);
-        } else {
-
-            this._addProduct(productFormData);
-        }
     }
 
     private _addProduct(productData: FormData) {
-        this.productService.createProduct(productData).subscribe(
+        this.productsService.createProduct(productData).subscribe(
             (product: Product) => {
                 this.messageService.add({
                     severity: 'success',
                     summary: 'Success',
                     detail: `Product ${product.name} is created!`
                 });
+
             },
             () => {
                 this.messageService.add({
@@ -78,6 +63,70 @@ export class ProductsFormComponent implements OnInit {
                 });
             }
         );
+    }
+
+    private _updateProduct(productFormData: FormData) {
+        this.productsService.updateProduct(productFormData, this.currentProductId).subscribe(
+            () => {
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Success',
+                    detail: 'Product is updated!'
+                });
+
+            },
+            () => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: 'Product is not updated!'
+                });
+            }
+        );
+    }
+
+    private _checkEditMode() {
+        this.route.params.subscribe((params) => {
+            if (params.id) {
+
+
+                this.editMode = true;
+                this.currentProductId = params.id;
+                this.productsService.getProduct(params.id).subscribe((product) => {
+                    console.log(product.category?._id)
+
+                    this.productForm.name.setValue(product.name);
+                    this.productForm.category.setValue(product.category._id);
+                    this.productForm.brand.setValue(product.brand);
+                    this.productForm.price.setValue(product.price);
+                    this.productForm.countInStock.setValue(product.countInStock);
+                    this.productForm.isFeatured.setValue(product.isFeatured);
+                    this.productForm.description.setValue(product.description);
+                    this.productForm.richDescription.setValue(product.richDescription);
+                    this.imageDisplay = product.image;
+                    this.productForm.image.setValidators([]);
+                    this.productForm.image.updateValueAndValidity();
+                });
+            }
+        });
+    }
+
+    onSubmit() {
+        this.isSubmitted = true;
+        if (this.form.invalid) return;
+        console.log('isValid')
+        const productFormData = new FormData();
+        Object.keys(this.productForm).map((key) => {
+            productFormData.append(key, this.productForm[key].value);
+        });
+        if (this.editMode) {
+            this._updateProduct(productFormData);
+        } else {
+            this._addProduct(productFormData);
+        }
+    }
+    onCancle() {
+        //this.location.back();
     }
 
     onImageUpload(event) {
@@ -91,47 +140,6 @@ export class ProductsFormComponent implements OnInit {
             };
             fileReader.readAsDataURL(file);
         }
-    }
-
-    private _updateProduct(productFormData: FormData) {
-        this.productService.updateProduct(productFormData, this.currentProductId).subscribe(
-            () => {
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Success',
-                    detail: 'Product is updated'
-                })
-            },
-            () => {
-                this.messageService.add({
-                    severity: 'error',
-                    summary: 'Error',
-                    detail: 'Product is not updated'
-                })
-            }
-        )
-    }
-
-    private _checkEditMode() {
-        this.route.params.subscribe((params) => {
-            if (params.id) {
-                this.editMode = true;
-                this.currentProductId = params.id;
-                this.productService.getProduct(params.id).subscribe((product) => {
-                    this.productForm.name.setValue(product.name);
-                    this.productForm.category.setValue(product.category.id);
-                    this.productForm.brand.setValue(product.brand);
-                    this.productForm.price.setValue(product.price);
-                    this.productForm.countInStock.setValue(product.countInStock);
-                    this.productForm.isFeatured.setValue(product.isFeatured);
-                    this.productForm.description.setValue(product.description);
-                    this.productForm.richDescription.setValue(product.richDescription);
-                    this.imageDisplay = product.image;
-                    this.productForm.image.setValidators([]);
-                    this.productForm.image.updateValueAndValidity();
-                })
-            }
-        })
     }
 
     get productForm() {
