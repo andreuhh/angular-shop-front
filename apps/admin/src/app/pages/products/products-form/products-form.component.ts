@@ -93,7 +93,6 @@ export class ProductsFormComponent implements OnInit {
                 this.editMode = true;
                 this.currentProductId = params.id;
                 this.productsService.getProduct(params.id).subscribe((product) => {
-                    console.log(product.category?._id)
 
                     this.productForm.name.setValue(product.name);
                     this.productForm.category.setValue(product.category._id);

@@ -61,7 +61,6 @@ export class UsersFormComponent implements OnInit {
     }
 
     private _addUser(user: User) {
-        console.log('create');
         this.usersService.createUser(user).subscribe(
             (user: User) => {
                 this.messageService.add({
@@ -117,8 +116,10 @@ export class UsersFormComponent implements OnInit {
                     this.userForm.city.setValue(user.city);
                     this.userForm.country.setValue(user.country);
 
+                    //this.userForm.password.setValue(user.password);
                     this.userForm.password.setValidators([]);
                     this.userForm.password.updateValueAndValidity();
+
                 });
             }
         });
@@ -139,7 +140,9 @@ export class UsersFormComponent implements OnInit {
             apartment: this.userForm.apartment.value,
             zip: this.userForm.zip.value,
             city: this.userForm.city.value,
-            country: this.userForm.country.value
+            country: this.userForm.country.value,
+
+            password: this.userForm.password.value
         };
         if (this.editmode) {
             this._updateUser(user);

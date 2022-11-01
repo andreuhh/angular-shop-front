@@ -29,8 +29,10 @@ export class UsersListComponent implements OnInit {
             header: 'Delete User',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
+
                 this.usersService.deleteUser(userId).subscribe(
                     () => {
+
                         this._getUsers();
                         this.messageService.add({
                             severity: 'success',

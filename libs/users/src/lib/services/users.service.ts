@@ -35,5 +35,4 @@ export class UsersService {
     return this.http.delete<any>(`${this.apiURLUsers}/${userId}`);
   }
 
-
 }
