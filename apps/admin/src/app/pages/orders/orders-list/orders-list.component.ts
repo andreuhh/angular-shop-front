@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Order, OrdersService } from '@bluebits/orders';
+import { ORDER_STATUS } from '../order.constants';
 
 @Component({
     selector: 'admin-orders-list',
@@ -8,6 +9,7 @@ import { Order, OrdersService } from '@bluebits/orders';
 })
 export class OrdersListComponent implements OnInit {
     orders: Order[] = [];
+    orderStatus = ORDER_STATUS;
 
     constructor(private ordersService: OrdersService) { }
 

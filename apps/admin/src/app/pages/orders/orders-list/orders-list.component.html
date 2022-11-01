@@ -23,10 +23,10 @@
               <td>{{ order.totalPrice }}</td>
               <td>{{ order.dateOrdered | date: 'short' }}</td>
               <td>
-                <!-- <p-tag
+                <p-tag
                   [value]="orderStatus[order.status].label"
-                  [severity]="orderStatus[order?.status]?.color"
-                ></p-tag> -->
+                  [severity]="orderStatus[order.status].color"
+                ></p-tag>
               </td>
               <td>
                 <!-- <p-button
