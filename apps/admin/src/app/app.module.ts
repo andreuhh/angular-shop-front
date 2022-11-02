@@ -35,6 +35,7 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { OrdersListComponent } from './pages/orders/orders-list/orders-list.component';
 import { OrdersDetailComponent } from './pages/orders/orders-detail/orders-detail.component';
 import { FieldsetModule } from 'primeng/fieldset';
+import { UsersModule } from '@bluebits/users';
 
 const UX_MODULE = [
     CardModule,
@@ -128,7 +129,14 @@ const routes: Routes = [
         OrdersListComponent,
         OrdersDetailComponent
     ],
-    imports: [BrowserModule, BrowserAnimationsModule, HttpClientModule, RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' }), ...UX_MODULE],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' }),
+        UsersModule,
+        ...UX_MODULE],
+
     providers: [CategoriesService, MessageService, ConfirmationService],
     bootstrap: [AppComponent]
 })
