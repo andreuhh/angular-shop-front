@@ -33,4 +33,31 @@ export class OrdersListComponent implements OnInit {
     showOrder(orderId) {
         this.router.navigateByUrl(`orders/${orderId}`);
     }
+
+    deleteOrder(orderId: string) {
+        this.confirmationService.confirm({
+            message: 'Do you want to Delete this Order?',
+            header: 'Delete Order',
+            icon: 'pi pi-exclamation-triangle',
+            accept: () => {
+                this.ordersService.deleteOrder(orderId).subscribe(
+                    () => {
+                        this._getOrders();
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Success',
+                            detail: 'Order is deleted!'
+                        });
+                    },
+                    () => {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Error',
+                            detail: 'Order is not deleted!'
+                        });
+                    }
+                );
+            }
+        });
+    }
 }
