@@ -36,6 +36,7 @@ import { OrdersListComponent } from './pages/orders/orders-list/orders-list.comp
 import { OrdersDetailComponent } from './pages/orders/orders-detail/orders-detail.component';
 import { FieldsetModule } from 'primeng/fieldset';
 import { AuthGuard, JwtInterceptor, UsersModule } from '@bluebits/users';
+import { AppRoutingModule } from './app-routing.module';
 
 const UX_MODULE = [
     CardModule,
@@ -57,63 +58,7 @@ const UX_MODULE = [
     FieldsetModule
 ];
 
-const routes: Routes = [
-    {
-        path: '',
-        component: ShellComponent,
-        //canActivate: [AuthGuard],
-        children: [
-            {
-                path: 'dashboard',
-                component: DashboardComponent
-            },
-            {
-                path: 'categories',
-                component: CategoriesListComponent
-            },
-            {
-                path: 'categories/form',
-                component: CategoriesFormComponent
-            },
-            {
-                path: 'categories/form/:id',
-                component: CategoriesFormComponent
-            },
-            {
-                path: 'products',
-                component: ProductsListComponent
-            },
-            {
-                path: 'products/form',
-                component: ProductsFormComponent
-            },
-            {
-                path: 'products/form/:id',
-                component: ProductsFormComponent
-            },
-            {
-                path: 'users',
-                component: UsersListComponent
-            },
-            {
-                path: 'users/form',
-                component: UsersFormComponent
-            },
-            {
-                path: 'users/form/:id',
-                component: UsersFormComponent
-            },
-            {
-                path: 'orders',
-                component: OrdersListComponent
-            },
-            {
-                path: 'orders/:id',
-                component: OrdersDetailComponent
-            }
-        ]
-    }
-];
+
 
 @NgModule({
     declarations: [
@@ -134,8 +79,8 @@ const routes: Routes = [
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
-        RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' }),
         UsersModule,
+        AppRoutingModule,
         ...UX_MODULE],
 
     providers: [CategoriesService, MessageService, ConfirmationService,
