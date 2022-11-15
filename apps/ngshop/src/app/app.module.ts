@@ -10,6 +10,8 @@ import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { UiModule } from '@bluebits/ui';
 import { AccordionModule } from 'primeng/accordion';
+import { NavComponent } from './shared/nav/nav.component';
+import { ProductsModule } from '@bluebits/products';
 
 const routes: Routes = [
     {
@@ -23,8 +25,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    declarations: [AppComponent, HomePageComponent, ProductListComponent, HeaderComponent, FooterComponent,],
-    imports: [BrowserModule, BrowserAnimationsModule, RouterModule.forRoot(routes), UiModule, AccordionModule,],
+    declarations: [AppComponent, HomePageComponent, ProductListComponent, HeaderComponent, FooterComponent, NavComponent],
+    imports: [BrowserModule, BrowserAnimationsModule, RouterModule.forRoot(routes), UiModule, AccordionModule, ProductsModule],
     providers: [],
     bootstrap: [AppComponent],
     exports: [
