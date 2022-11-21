@@ -12,6 +12,7 @@ import { UiModule } from '@bluebits/ui';
 import { AccordionModule } from 'primeng/accordion';
 import { NavComponent } from './shared/nav/nav.component';
 import { ProductsModule } from '@bluebits/products';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
     {
@@ -30,6 +31,7 @@ const routes: Routes = [
         BrowserModule,
         BrowserAnimationsModule,
         RouterModule.forRoot(routes),
+        HttpClientModule,
         UiModule,
         AccordionModule,
         ProductsModule
