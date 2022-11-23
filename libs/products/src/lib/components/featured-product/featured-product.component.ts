@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Product } from '@bluebits/products';
+import { ProductsService } from '../../services/products.service';
 
 @Component({
     selector: 'products-featured-products',
@@ -6,7 +8,17 @@ import { Component, OnInit } from '@angular/core';
     styles: []
 })
 export class FeaturedProductComponent implements OnInit {
-    constructor() { }
+    featuredProducts: Product[] = [];
 
-    ngOnInit(): void { }
+    constructor(private prodService: ProductsService) { }
+
+    ngOnInit(): void {
+        this._getFeaturedProducts()
+    }
+
+    private _getFeaturedProducts() {
+        this.prodService.getFeaturedProducts(4).subscribe(products => {
+            this.featuredProducts = products
+        })
+    }
 }
