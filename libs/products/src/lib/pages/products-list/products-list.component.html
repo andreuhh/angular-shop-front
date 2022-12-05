@@ -2,12 +2,13 @@
     <div class="grid">
       <div class="col-3">
         <h4>Categories</h4>
-        <div class="p-field-checkbox" *ngFor="let category of categories">
-          <p-checkbox
+
+          <div class="p-field-checkbox" *ngFor="let category of categories">
             
-          ></p-checkbox>
-          <label for="{{ category.id }}">{{ category.name }}</label>
-        </div>
+            <!-- [checked]=""  -->
+            <input [(ngModel)]="category.checked"(change)="categoryFilter(category)" type="checkbox" class="form-check-input mb-2" id="{{category.id}}">
+            <label for="{{ category._id }}">{{ category.name }}</label>
+          </div>
       </div>
       <div class="col-9">
         <div class="grid" *ngIf="products">

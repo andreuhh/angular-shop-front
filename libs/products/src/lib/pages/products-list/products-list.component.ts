@@ -13,16 +13,21 @@ export class ProductsListComponent implements OnInit {
     products: Product[] = [];
     categories: Category[] = [];
 
-    constructor(private prodService: ProductsService, private catService: CategoriesService) { }
+    constructor(
+        private prodService: ProductsService,
+        private catService: CategoriesService,
+    ) { }
 
     ngOnInit(): void {
         this._getProducts();
         this._getCategories();
     }
 
-    private _getProducts() {
-        this.prodService.getProducts().subscribe(resProducts => {
+    private _getProducts(categoriesFilter?: string[]) {
+        this.prodService.getProducts(categoriesFilter).subscribe(resProducts => {
             this.products = resProducts;
+
+            console.log(this.products)
         })
     }
 
@@ -30,5 +35,14 @@ export class ProductsListComponent implements OnInit {
         this.catService.getCategories().subscribe((resCats) => {
             this.categories = resCats;
         });
+    }
+
+    categoryFilter(cat: Category) {
+        const selectedCategories = this.categories
+            .filter((category) => category.checked)
+            .map((category) => category._id);
+        console.log(selectedCategories);
+
+        this._getProducts(selectedCategories as any);
     }
 }

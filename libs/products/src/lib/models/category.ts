@@ -4,4 +4,5 @@ export class Category {
     name?: String;
     icon?: String;
     color?: String;
+    checked?: boolean;
 }

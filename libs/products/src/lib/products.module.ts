@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { OrdersModule } from 'libs/orders/src/lib/orders.module';
 import { ButtonModule } from 'primeng/button';
@@ -19,7 +20,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-    imports: [CommonModule, OrdersModule, RouterModule.forChild(routes), ButtonModule, CheckboxModule],
+    imports: [CommonModule, OrdersModule, RouterModule.forChild(routes), ButtonModule, CheckboxModule, FormsModule],
     declarations: [ProductsSearchComponent, CategoriesBannerComponent, ProductItemComponent, FeaturedProductComponent, ProductsListComponent],
     exports: [ProductsSearchComponent, CategoriesBannerComponent, ProductItemComponent, FeaturedProductComponent, ProductsListComponent]
 })
